@@ -1,0 +1,25 @@
+import requests
+import time
+
+eth_price = []
+
+for i in range(30):  # 30 итераций запроса к API Binance
+    response = requests.get('https://api.binance.com/api/v3/ticker/price')  # Получаем новые данные в каждой итерации
+    data = response.json()
+
+    for ticker in data:
+        if ticker['symbol'] == 'ETHUSDT':  # Ищем курс Ethereum к доллару
+            price = float(ticker['price'])  # Преобразуем строку в число
+            eth_price.append(price)
+            break  # Достаточно найти один раз за итерацию
+
+    print(f"{i + 1}. {eth_price[-1]}")  # Выводим последний записанный курс
+    time.sleep(1)  # Задержка 1 секунда
+
+print("\nСтатистика за 30 секунд:")
+print(f"Список курсов: {eth_price}")
+print(f"Максимальный курс: {max(eth_price)}")
+print(f"Минимальный курс: {min(eth_price)}")
+print(f"Количество замеров: {len(eth_price)}")
+print(f"Разница: {max(eth_price) - min(eth_price)}")
+print(f"Средний курс: {sum(eth_price) / len(eth_price)}")
