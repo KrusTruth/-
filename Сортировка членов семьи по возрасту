@@ -1,0 +1,16 @@
+family = []
+
+n = int(input("Сколько человек в семье? "))
+
+for i in range(n):
+    name = str(input(f"Введите имя {i + 1}: "))
+    age = int(input(f"Введите его возраст: "))
+    chlen = {"name": name, "age": age}
+    family.append(chlen)
+
+def len_by_age(person: dict):
+    return person["age"]
+
+sorted_family = sorted(family, key=len_by_age, reverse=True)
+
+print(sorted_family)
